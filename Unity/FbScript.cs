@@ -27,7 +27,7 @@ public class FbScript : MonoBehaviour {
 		}
 	}
 
-	//if the game is shown continue, otherwise pause the game
+	//if the game is shown then continue, otherwise pause the game
 	void onHideUnity(bool isGameShown)
 	{
 		if (!isGameShown) {
