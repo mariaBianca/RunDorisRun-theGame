@@ -1,4 +1,4 @@
-﻿/**
+/**
 *Script used to connect to Facebook.
 *@author TheHub
 *DIT029 H16 Project: Software Architecture for Distributed Systems
@@ -8,8 +8,15 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using Facebook.Unity;
+using UnityEngine.UI;
 
 public class FbScript : MonoBehaviour {
+
+
+	public GameObject DialogLoggedIn;
+	public GameObject DialogLoggedOut;
+	public GameObject DialogUsername;
+	public GameObject DialogProfilePic;
 
 	//Initialize the function
 	void Awake () 
@@ -25,9 +32,11 @@ public class FbScript : MonoBehaviour {
 		} else {
 			Debug.Log ("Facebook is not logged in.");
 		}
+	DealWithFBMenus (FB.IsLoggedIn);
+
 	}
 
-	//if the game is shown then continue, otherwise pause the game
+	//if the game is shown continue, otherwise pause the game
 	void onHideUnity(bool isGameShown)
 	{
 		if (!isGameShown) {
@@ -48,6 +57,7 @@ public class FbScript : MonoBehaviour {
 		FB.LogInWithReadPermissions (permissions, AuthCallBack);
 	}
 
+	//deal with errors
 	void AuthCallBack(IResult result)
 	{
 		if (result.Error != null){
@@ -58,7 +68,33 @@ public class FbScript : MonoBehaviour {
 			} else {
 				Debug.Log("Facebook is not logged in.");
 			}
+			DealWithFBMenus (FB.IsLoggedIn);
 
 		}
+	}
+
+	//change Facebook menus accordingly
+	void DealWithFBMenus(bool isLoggedIn)
+	{
+		if (isLoggedIn) {
+			DialogLoggedIn.SetActive (true);
+			DialogLoggedOut.SetActive (false);
+			FB.API ("/me?fields=first_name", HttpMethod.GET, DisplayUsername);
+		} else {
+			DialogLoggedIn.SetActive (false);
+			DialogLoggedOut.SetActive (true);
+		}
+	}
+
+	//method that displays the grabbed username
+	void DisplayUsername(IResult result)
+	{
+		Text UserName = DialogUsername.GetComponent<Text> ();
+		if (result.Error == null) {
+			UserName.text = "Hi there, " + result.ResultDictionary["first_name"];
+		} else {
+			Debug.Log (result.Error);
+		}
+
 	}
 }
