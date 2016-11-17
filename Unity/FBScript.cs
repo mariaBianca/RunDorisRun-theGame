@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using Facebook.Unity;
 using UnityEngine.UI;
 
-public class FBscript : MonoBehaviour
+public class FBScript : MonoBehaviour
 {
 
 
