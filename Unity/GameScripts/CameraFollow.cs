@@ -1,11 +1,11 @@
-﻿using UnityEngine;
-using System.Collections;
 /**
 *Script used to move the camera.
 *@author TheHub
 *DIT029 H16 Project: Software Architecture for Distributed Systems
 *University of Gothenburg, Sweden 2016
 */
+﻿using UnityEngine;
+using System.Collections;
 public class CameraFollow : MonoBehaviour {
 
 	public Transform target;            // The position that that camera will be following.
