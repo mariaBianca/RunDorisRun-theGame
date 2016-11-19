@@ -1,10 +1,12 @@
-﻿using UnityEngine;
 /**
 *Script used to move the player.
 *@author TheHub
 *DIT029 H16 Project: Software Architecture for Distributed Systems
 *University of Gothenburg, Sweden 2016
 */
+
+using UnityEngine;
+
 public class PlayerMovement : MonoBehaviour
 {
 	public float speed = 6f;            // The speed that the player will move at.
