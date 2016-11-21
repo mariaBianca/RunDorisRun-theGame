@@ -1,4 +1,15 @@
-﻿using System;
+﻿/**
+*Script used to connect test the Unity3D to MongoDB connection.
+*This script utilises the M2Mqtt client library for the MQTT protocol
+*
+*@author TheHub
+*
+*This script uses some preincluded Unity3D Assets (such as libraries) in order to work.
+*
+*DIT029 H16 Project: Software Architecture for Distributed Systems
+*University of Gothenburg, Sweden 2016
+*/
+using System;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 using System.Net;
@@ -57,8 +68,7 @@ namespace UnityStandardAssets._2D
             if (!m_Jump)
             {
                 mqttClient.MqttMsgPublishReceived += jumpOnMqtt;
-                // Read the jump input in Update so button presses aren't missed.
-                //m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
+                // Read the jump input in Update so that MQTT signals aren't missed.
                 if (mqttMessageRec == "Jump")
                 {
                     //m_Jump = true;
@@ -71,7 +81,7 @@ namespace UnityStandardAssets._2D
 
         private void FixedUpdate()
         {
-            // Read the inputs.
+            // Read the inputs (refers to the keyboard inputs).
             bool crouch = Input.GetKey(KeyCode.LeftControl);
             float h = CrossPlatformInputManager.GetAxis("Horizontal");
             // Pass all parameters to the character control script.
