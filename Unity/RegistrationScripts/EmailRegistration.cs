@@ -19,14 +19,13 @@ public class EmailRegistration : MonoBehaviour
 	public GameObject username;
 
 	private string Email;
-	private bool EmailValid = false;
 	private string Username = "";
 	private string Password = "";
 	private string ConfirmPassword = "";
 	private string form = "";
-	private string[] Characters = {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z",
-		"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",
-		"1","2","3","4","5","6","7","8","9","0","_","-"};
+	// private string[] Characters = {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z",
+	//                                "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",
+	//                                "1","2","3","4","5","6","7","8","9","0","_","-"};
 
 
 	// Use this for initialization
@@ -66,15 +65,11 @@ public class EmailRegistration : MonoBehaviour
 
 		//check if email is valid
 		if (Email != "") {
-			if (EmailValid) {
-				if (Email.Contains ("@")) {
-					if (Email.Contains (".")) {
-						EM = true;
-					} else {
-						Debug.LogWarning ("Email field is incorrect.");					
-					}
+			if (Email.Contains ("@")) {
+				if (Email.Contains (".")) {
+					EM = true;
 				} else {
-					Debug.LogWarning ("Email field is incorrect.");
+					Debug.LogWarning ("Email field is incorrect.");					
 				}
 			} else {
 				Debug.LogWarning ("Email field is incorrect.");
@@ -118,7 +113,7 @@ public class EmailRegistration : MonoBehaviour
 				char Encrypted = (char)(c * i);
 				Password += Encrypted.ToString ();
 			}
-			form = (Username+"\n" + Email +"\n" + Password);
+			form = (Username+"  " + Email +"  " + Password);
 			//add it to a form
 			System.IO.File.WriteAllText(@"C:/Users/lenovo/Desktop/UnityTest/" + Email + ".txt", form);
 
@@ -127,6 +122,10 @@ public class EmailRegistration : MonoBehaviour
 			password.GetComponent<InputField>().text = "";
 			confirmPassword.GetComponent<InputField>().text = "";
 			email.GetComponent<InputField> ().text = "";
+			UN = false;
+			EM = false;
+			PW = false;
+			CPW = false;
 
 			Debug.Log ("Registration successful!");
 			print ("Registration Completed!");
@@ -167,28 +166,5 @@ public class EmailRegistration : MonoBehaviour
 		}
 
 	}
-
-	void EmailValidation() {
-		bool StartsWith = false;
-		bool EndsWith = false;
-		for (int i = 0; i < Characters.Length; i++) {
-			if (Email.StartsWith(Characters[i])) {
-				StartsWith = true;
-			}
-		}
-		for (int i = 0; i < Characters.Length; i++)
-		{
-			if (Email.EndsWith(Characters[i]))
-			{
-				EndsWith = true;
-			}
-		}
-		if(StartsWith == true && EndsWith == true) {
-			EmailValid = true;
-		}
-
-
-	}
-
 
 }
