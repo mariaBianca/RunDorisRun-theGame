@@ -10,6 +10,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Facebook.Unity;
 using UnityEngine.UI;
+//using System;
 
 public class FBScript : MonoBehaviour
 {
@@ -25,35 +26,12 @@ public class FBScript : MonoBehaviour
     //Initialize the function
     void Awake()
     {
-        FB.Init(setInit, onHideUnity);
-    }
 
-    //set the Facebook initialization and log accordingly
-    void setInit()
-    {
-        if (FB.IsLoggedIn)
-        {
-            Debug.Log("Facebook is logged in.");
-        }
-        else
-        {
-            Debug.Log("Facebook is not logged in.");
-        }
+        //FB.Init(setInit, onHideUnity); 
+        FacebookManager.Instance.InitFB();
         DealWithFBMenus(FB.IsLoggedIn);
 
-    }
 
-    //if the game is shown continue, otherwise pause the game
-    void onHideUnity(bool isGameShown)
-    {
-        if (!isGameShown)
-        {
-            Time.timeScale = 0;
-        }
-        else
-        {
-            Time.timeScale = 1;
-        }
     }
 
     //Login function
@@ -79,6 +57,8 @@ public class FBScript : MonoBehaviour
         {
             if (FB.IsLoggedIn)
             {
+                FacebookManager.Instance.IsLoggedIn = true;
+                FacebookManager.Instance.GetProfile();
                 Debug.Log("Facebook is logged in.");
             }
             else
@@ -97,69 +77,59 @@ public class FBScript : MonoBehaviour
         {
             DialogLoggedIn.SetActive(true);
             DialogLoggedOut.SetActive(false);
-            FB.API("/me?fields=first_name", HttpMethod.GET, DisplayUsername);
-            FB.API("/me/picture?type=square&height=128&width=128", HttpMethod.GET, DisplayProfilePic);
-            FB.API("/me?fields=email", HttpMethod.GET, DisplayEmail);
-            FB.API("/me?fields=id", HttpMethod.GET, DisplayId);
-        }
-        else
-        {
-            DialogLoggedIn.SetActive(false);
-            DialogLoggedOut.SetActive(true);
+            if (FacebookManager.Instance.ProfileName != null)
+            {
+                Text UserName = DialogUsername.GetComponent<Text>();
+                UserName.text = "hi, " + FacebookManager.Instance.ProfileName;
+            }
+            else
+            {
+                StartCoroutine("WaitForProfileName");
+            }
+
+            if (isLoggedIn)
+            {
+                DialogLoggedIn.SetActive(true);
+                DialogLoggedOut.SetActive(false);
+                if (FacebookManager.Instance.ProfilePic != null)
+                {
+                    Image ProfilePic = DialogProfilePic.GetComponent<Image>();
+                    ProfilePic.sprite = FacebookManager.Instance.ProfilePic;
+                }
+                else
+                {
+                    StartCoroutine("WaitForProfilePic");
+                }
+
+            }
+            else
+            {
+
+                DialogLoggedIn.SetActive(false);
+                DialogLoggedOut.SetActive(true);
+            }
         }
     }
-
-    //method that displays the grabbed username
-    void DisplayUsername(IResult result)
+    IEnumerator WaitForProfileName()
     {
-        Text UserName = DialogUsername.GetComponent<Text>();
-        if (result.Error == null)
+        while (FacebookManager.Instance.ProfileName == null)
         {
-            UserName.text = "Hi there, " + result.ResultDictionary["first_name"];
+            yield return null;
         }
-        else
-        {
-            Debug.Log(result.Error);
-        }
-
+        DealWithFBMenus(FB.IsLoggedIn);
     }
-    //method that displays the grabbed email
-    void DisplayEmail(IResult result)
+
+    IEnumerator WaitForProfilePic()
     {
-        Text Email = DialogEmail.GetComponent<Text>();
-        if (result.Error == null)
+        while (FacebookManager.Instance.ProfilePic == null)
         {
-            Email.text = "Your email address is: " + result.ResultDictionary["email"];
+            yield return null;
         }
-        else
-        {
-            Debug.Log(result.Error);
-        }
-
+        DealWithFBMenus(FB.IsLoggedIn);
     }
-
-    //method that displays the grabbed Id
-    void DisplayId(IResult result)
+    public void Share()
     {
-        Text Id = DialogId.GetComponent<Text>();
-        if (result.Error == null)
-        {
-            Id.text = "And this is your id: " + result.ResultDictionary["id"];
-        }
-        else
-        {
-            Debug.Log(result.Error);
-        }
-
+        FacebookManager.Instance.Share();
     }
 
-    //method that displays the profile picture
-    void DisplayProfilePic(IGraphResult result)
-    {
-        if (result.Texture != null)
-        {
-            Image ProfilePic = DialogProfilePic.GetComponent<Image>();
-            ProfilePic.sprite = Sprite.Create(result.Texture, new Rect(0, 0, 128, 128), new Vector2());
-        }
-    }
 }
