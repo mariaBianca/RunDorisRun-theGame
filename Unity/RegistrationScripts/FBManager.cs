@@ -6,19 +6,19 @@ using Facebook.Unity;
 using UnityEngine.UI;
 
 
-public class FacebookManager : MonoBehaviour
+public class FBManager : MonoBehaviour
 {
 
-    private static FacebookManager _instance;
+    private static FBManager _instance;
 
-    public static FacebookManager Instance
+    public static FBManager Instance
     {
         get
         {
             if (_instance == null)
             {
                 GameObject facebookmanager = new GameObject("FBManager");
-                facebookmanager.AddComponent<FacebookManager>();
+                facebookmanager.AddComponent<FBManager>();
             }
 
             return _instance;
@@ -86,9 +86,9 @@ public class FacebookManager : MonoBehaviour
         FB.GetAppLink(DealWithAppLink);
     }
     //method that displays the grabbed username
-    void DisplayUsername(IResult result) 
+    void DisplayUsername(IResult result)
     {
-   // this line can be removed     Text UserName = DialogUsername.GetComponent<Text>();
+        // this line can be removed     Text UserName = DialogUsername.GetComponent<Text>();
         if (result.Error == null)
         {
             ProfileName = "" + result.ResultDictionary["first_name"];
@@ -100,50 +100,55 @@ public class FacebookManager : MonoBehaviour
 
     }
     //method that displays the grabbed email
-   // void DisplayEmail(IResult result)
-   // {
-   //     // this line can be removed     Text Email = DialogEmail.GetComponent<Text>();
+    // void DisplayEmail(IResult result)
+    // {
+    //     // this line can be removed     Text Email = DialogEmail.GetComponent<Text>();
     //    if (result.Error == null)
     //    {
     //        ProfileEmail = "" + result.ResultDictionary["email"];
-   //     }
-   //     else
-   //     {
-  //          Debug.Log(result.Error);
-  //      }
+    //     }
+    //     else
+    //     {
+    //          Debug.Log(result.Error);
+    //      }
 
-   // }
+    // }
 
     //method that displays the grabbed Id
- //   void DisplayId(IResult result)
- //   {
- //       // this line can be removed      Text Id = DialogId.GetComponent<Text>();
- //       if (result.Error == null)
- //       {
-//            ProfileId = "" + result.ResultDictionary["id"];
-//        }
-//       else
-//        {
-//            Debug.Log(result.Error);
- //       }
-//
- //   }
+    //   void DisplayId(IResult result)
+    //   {
+    //       // this line can be removed      Text Id = DialogId.GetComponent<Text>();
+    //       if (result.Error == null)
+    //       {
+    //            ProfileId = "" + result.ResultDictionary["id"];
+    //        }
+    //       else
+    //        {
+    //            Debug.Log(result.Error);
+    //       }
+    //
+    //   }
 
     //displays the profile picture
     void DisplayProfilePic(IGraphResult result)
     {
-        if (result.Texture != null){
-           ProfilePic = Sprite.Create(result.Texture, new Rect(0, 0, 128, 128), new Vector2());
-       }
-   }
-    void DealWithAppLink(IAppLinkResult result){
-        if (!String.IsNullOrEmpty(result.Url)){
+        if (result.Texture != null)
+        {
+            ProfilePic = Sprite.Create(result.Texture, new Rect(0, 0, 128, 128), new Vector2());
+        }
+    }
+    void DealWithAppLink(IAppLinkResult result)
+    {
+        if (!String.IsNullOrEmpty(result.Url))
+        {
             AppLinkURL = "" + result.Url + "";
             Debug.Log(AppLinkURL);
-        }else {
+        }
+        else
+        {
             AppLinkURL = "http://google.com";
         }
-       }
+    }
 
 
     //share something
@@ -162,12 +167,18 @@ public class FacebookManager : MonoBehaviour
     }
 
     //print the result
-    void ShareCallBack(IResult result){
-        if (result.Cancelled) {
+    void ShareCallBack(IResult result)
+    {
+        if (result.Cancelled)
+        {
             Debug.Log("Share cancelled");
-        }else if (!string.IsNullOrEmpty(result.Error)){
+        }
+        else if (!string.IsNullOrEmpty(result.Error))
+        {
             Debug.Log("Error on share!");
-        }else if (!string.IsNullOrEmpty(result.RawResult)) {
+        }
+        else if (!string.IsNullOrEmpty(result.RawResult))
+        {
             Debug.Log("Success!");
         }
 

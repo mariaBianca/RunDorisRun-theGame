@@ -28,7 +28,7 @@ public class FBScript : MonoBehaviour
     {
 
         //FB.Init(setInit, onHideUnity); 
-        FacebookManager.Instance.InitFB();
+        FBManager.Instance.InitFB();
         DealWithFBMenus(FB.IsLoggedIn);
 
 
@@ -57,8 +57,8 @@ public class FBScript : MonoBehaviour
         {
             if (FB.IsLoggedIn)
             {
-                FacebookManager.Instance.IsLoggedIn = true;
-                FacebookManager.Instance.GetProfile();
+                FBManager.Instance.IsLoggedIn = true;
+                FBManager.Instance.GetProfile();
                 Debug.Log("Facebook is logged in.");
             }
             else
@@ -77,10 +77,10 @@ public class FBScript : MonoBehaviour
         {
             DialogLoggedIn.SetActive(true);
             DialogLoggedOut.SetActive(false);
-            if (FacebookManager.Instance.ProfileName != null)
+            if (FBManager.Instance.ProfileName != null)
             {
                 Text UserName = DialogUsername.GetComponent<Text>();
-                UserName.text = "hi, " + FacebookManager.Instance.ProfileName;
+                UserName.text = "hi, " + FBManager.Instance.ProfileName;
             }
             else
             {
@@ -91,10 +91,10 @@ public class FBScript : MonoBehaviour
             {
                 DialogLoggedIn.SetActive(true);
                 DialogLoggedOut.SetActive(false);
-                if (FacebookManager.Instance.ProfilePic != null)
+                if (FBManager.Instance.ProfilePic != null)
                 {
                     Image ProfilePic = DialogProfilePic.GetComponent<Image>();
-                    ProfilePic.sprite = FacebookManager.Instance.ProfilePic;
+                    ProfilePic.sprite = FBManager.Instance.ProfilePic;
                 }
                 else
                 {
@@ -112,7 +112,7 @@ public class FBScript : MonoBehaviour
     }
     IEnumerator WaitForProfileName()
     {
-        while (FacebookManager.Instance.ProfileName == null)
+        while (FBManager.Instance.ProfileName == null)
         {
             yield return null;
         }
@@ -121,7 +121,7 @@ public class FBScript : MonoBehaviour
 
     IEnumerator WaitForProfilePic()
     {
-        while (FacebookManager.Instance.ProfilePic == null)
+        while (FBManager.Instance.ProfilePic == null)
         {
             yield return null;
         }
@@ -129,7 +129,7 @@ public class FBScript : MonoBehaviour
     }
     public void Share()
     {
-        FacebookManager.Instance.Share();
+        FBManager.Instance.Share();
     }
 
 }
