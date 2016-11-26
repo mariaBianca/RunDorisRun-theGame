@@ -1,3 +1,9 @@
+/**
+*Source code in Erlang use to supervise the worker for the chat .
+*@author Mayra Soliz/m65v
+*DIT029 H16 Project: Software Architecture for Distributed Systems
+*University of Gothenburg, Sweden 2016
+*/
 -module(potatochat_sup).
 -behaviour(supervisor).
 -export([

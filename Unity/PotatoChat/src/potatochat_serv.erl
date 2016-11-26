@@ -1,3 +1,10 @@
+/**
+*Source code that for the chat that connnects the
+* server with mosquito.
+*@author Mayra Soliz/m65v
+*DIT029 H16 Project: Software Architecture for Distributed Systems
+*University of Gothenburg, Sweden 2016
+*/
 -module(potatochat_serv).
 -behaviour(gen_server).
 -export([

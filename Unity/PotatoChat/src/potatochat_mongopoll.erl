@@ -1,3 +1,10 @@
+/**
+*Source code use to stablish the connection between mongoDB
+*and Erlang
+*@author Mayra Soliz/m65v
+*DIT029 H16 Project: Software Architecture for Distributed Systems
+*University of Gothenburg, Sweden 2016
+*/
 -module(potatochat_mongopoll).
 -export([
     start/0,
