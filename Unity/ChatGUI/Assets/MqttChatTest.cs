@@ -16,7 +16,7 @@ public class MqttChatTest : MonoBehaviour
 	private MqttClient mqttClient;
 	private string messageJson = "";
 	public string username = "username";
-	private string msgText; 
+	private string msgText;
 	public InputField msgField;
 	// Use this for initialization of the MQTT client
 	void Start()
@@ -31,10 +31,11 @@ public class MqttChatTest : MonoBehaviour
 	public void doClick()
 	{
 		msgText = msgField.text;
+		Debug.Log (msgField.text);
 
 		messageJson = "{\"name\": \" " + username + "\" " +
 			",\"text\": \"" + msgText + "\"}";
-		Debug.Log ("hey " + msgText);
+		Debug.Log("hey " + msgText);
 
 		//add it to the database through MQTT
 		if (mqttClient.IsConnected)
@@ -46,5 +47,6 @@ public class MqttChatTest : MonoBehaviour
 			Debug.Log("MQTT connection does not work.");
 		}
 	}
+
 
 }
