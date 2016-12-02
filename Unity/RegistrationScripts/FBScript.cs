@@ -24,24 +24,20 @@ public class FBScript : MonoBehaviour
 {
 	private MqttClient mqttClient;
 
-
 	public GameObject DialogLoggedIn;
 	public GameObject DialogLoggedOut;
 	public GameObject DialogFirstName;
 	public GameObject DialogLastName;
 	public GameObject DialogProfilePic;
 	public GameObject DialogEmail;
-	public GameObject DialogId;
 
 	//variables used to transfer data to db from facebook
 	private string username = "";
 	private string email = "";
-	private string id = "";
 	private string infoJson = "";
 	private Text LastName ;
 	private Text FirstName ;
 	private Text Email;
-	private Text Id;
 
 	//Initialize the function
 	void Awake()
@@ -131,7 +127,6 @@ public class FBScript : MonoBehaviour
 			FB.API ("/me?fields=last_name", HttpMethod.GET, DisplayLastName);
 			FB.API("/me/picture?type=square&height=128&width=128", HttpMethod.GET, DisplayProfilePic);
 			FB.API("/me?fields=email", HttpMethod.GET, DisplayEmail);
-			FB.API("/me?fields=id", HttpMethod.GET, DisplayId);
 		}
 		else
 		{
@@ -183,21 +178,6 @@ public class FBScript : MonoBehaviour
 
 	}
 
-	//method that displays the grabbed Id
-	void DisplayId(IResult result)
-	{
-		Id = DialogId.GetComponent<Text>();
-		if (result.Error == null)
-		{
-			Id.text = "" + result.ResultDictionary["id"];
-		}
-		else
-		{
-			Debug.Log(result.Error);
-		}
-
-	}
-
 	//method that tests the login button functionality
 	public void TestLoginButton()
 	{
@@ -229,21 +209,18 @@ public class FBScript : MonoBehaviour
 	void RegisterUser(){
 		string hashedEmail = Hash (email);
 		username = FirstName.text.ToString () + " " + LastName.text.ToString();
-		id = Id.text.ToString ();
 		email = Email.text.ToString ();
 		hashedEmail = Hash (email);
 		string hashedPass = Hash ("" + Random.Range(0, 10000));
 		Debug.Log (username);
 		infoJson = "{\"name\": \"" + username + "\" " +
-			",\"user_ID\": " + id +
 			",\"hashedEmail\": \"" + hashedEmail + "\" " +
-			",\"hashedPass\": \"" + hashedPass + "\" " +
-			",\"typeOfClient\": \"RunDorisRun\" }";      
+			",\"hashedPass\": \"" + hashedPass + "\" }";
 
 		//add it to the database through MQTT
 		if (mqttClient.IsConnected) {
 			Debug.Log (infoJson);
-			mqttClient.Publish ("testStore", System.Text.Encoding.UTF8.GetBytes (infoJson), MqttMsgBase.QOS_LEVEL_AT_LEAST_ONCE, true);
+			mqttClient.Publish ("thehub/rundorisrun/users/registeruser", System.Text.Encoding.UTF8.GetBytes (infoJson), MqttMsgBase.QOS_LEVEL_AT_LEAST_ONCE, true);
 		} else {
 			Debug.Log ("MQTT connection does not work.");
 		}
