@@ -17,7 +17,7 @@ using uPLibrary.Networking.M2Mqtt.Messages;
 using uPLibrary.Networking.M2Mqtt.Utility;
 using uPLibrary.Networking.M2Mqtt.Exceptions;
 using System.Text;
-
+using UnityEngine.SceneManagement;
 
 
 public class EmailRegistration : MonoBehaviour
@@ -167,8 +167,11 @@ public class EmailRegistration : MonoBehaviour
 			PW = false;
 			CPW = false;
 			ValidationText = "Registration Completed!";
-			Debug.Log (ValidationText);
 			validationText.GetComponent<Text> ().text = ValidationText;
+			Debug.Log (ValidationText);
+
+			//add the new scene
+			SceneManager.LoadScene ("Game Options");
 
 		} 
 	}
@@ -234,6 +237,7 @@ public class EmailRegistration : MonoBehaviour
 
 	}
 
+	//get the string from the MQTT 
 	void MqttMsgGetString(object sender, MqttMsgPublishEventArgs e) 
 	{ 
 		MqttMailCheck = System.Text.Encoding.UTF8.GetString(e.Message);
