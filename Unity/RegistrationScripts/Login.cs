@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
@@ -33,11 +32,11 @@ public class Login : MonoBehaviour
     void Start()
     {
         MqttMailCheck = "";
-        mqttClient = new MqttClient(IPAddress.Parse("127.0.0.1"), 1883, false, null);
+        mqttClient = new MqttClient(IPAddress.Parse("129.16.155.34"), 1883, false, null);
         string clientId = Guid.NewGuid().ToString();
-        mqttClient.Connect(clientId);
+        mqttClient.Connect(clientId, "theHub", "theHub");
         //getMesssage subscribed
-        mqttClient.Subscribe(new string[] { "check" }, new byte[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
+        mqttClient.Subscribe(new string[] { "thehub/rundorisrun/player/check" }, new byte[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
         mqttClient.MqttMsgPublishReceived += MqttMsgGetString;
 
     }
@@ -88,7 +87,7 @@ public class Login : MonoBehaviour
         string messageJson = "{\"hashedEmail\": \"" + hashedEmail + "\" }";
         if (mqttClient.IsConnected)
         {
-            mqttClient.Publish("check", System.Text.Encoding.UTF8.GetBytes(messageJson), MqttMsgBase.QOS_LEVEL_AT_LEAST_ONCE, true);
+            mqttClient.Publish("thehub/rundorisrun/player/check", System.Text.Encoding.UTF8.GetBytes(messageJson), MqttMsgBase.QOS_LEVEL_AT_LEAST_ONCE, true);
         }
         else
         {
