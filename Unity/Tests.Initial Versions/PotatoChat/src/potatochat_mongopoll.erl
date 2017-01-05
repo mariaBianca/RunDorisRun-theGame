@@ -1,10 +1,10 @@
-/**
-*Source code use to stablish the connection between mongoDB
-*and Erlang
-*@author Mayra Soliz/m65v
-*DIT029 H16 Project: Software Architecture for Distributed Systems
-*University of Gothenburg, Sweden 2016
-*/
+%/**
+%*Source code use to stablish the connection between mongoDB
+%*and Erlang
+%*@author Mayra Soliz/m65v
+%*DIT029 H16 Project: Software Architecture for Distributed Systems
+%*University of Gothenburg, Sweden 2016
+%*/
 -module(potatochat_mongopoll).
 -export([
     start/0,
@@ -13,6 +13,7 @@
     stop/1
 ]).
 
+%Adding macros in erlang
 -define(MONGO_HOST, "localhost").
 -define(MONGO_PORT, 27017).
 -define(MONGO_DATABASE, <<"potatochat">>).

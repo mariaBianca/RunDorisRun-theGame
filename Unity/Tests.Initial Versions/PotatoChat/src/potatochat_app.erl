@@ -10,6 +10,10 @@
     start/2,
     stop/1
 ]).
+%%The start function that call the function %%potato_sup:start_link  
 
 start(_StartType, _StartArgs) -> potatochat_sup:start_link().
+
+%%The stop function will stop the chat 
+
 stop(_State) -> ok.
