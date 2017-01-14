@@ -30,13 +30,14 @@ able to defeat the armies of the evil Potato Lord? Play and see!
 https://drive.google.com/open?id=0B0ANuEEAY4BwNkRQaVB6WDA4MXM
 
 * - Mac OS:
-
+https://drive.google.com/open?id=0B0ANuEEAY4BwU3RYUDFaVG84dUE
 
 * - Windows:
-
+https://drive.google.com/open?id=0B0ANuEEAY4BwRV9Va2ppbzJWak0
 
 
 ###Get the Unity3D project: 
+
 
 ##Disclaimer
 This game is built by TheHub (Team9) of SEM'16, University of Gothenburg.
