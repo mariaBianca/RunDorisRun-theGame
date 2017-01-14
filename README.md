@@ -25,7 +25,18 @@ to the evil mutatoes. Will Doris be able to protect her fellow innocent potatoes
 able to defeat the armies of the evil Potato Lord? Play and see!
 ```
 
-###Getting the Unity3D project:
+###Get the game:
+* - Linux:
+https://drive.google.com/open?id=0B0ANuEEAY4BwNkRQaVB6WDA4MXM
+
+* - Mac OS:
+
+
+* - Windows:
+
+
+
+###Get the Unity3D project:
 
 * 1 - Download and install [Resilio](https://www.resilio.com/individuals/).
 * 2 - Connect to the shared [folder](https://link.getsync.com/#f=GameProject&sz=23E7&t=1&s=EGX4CTE5TO4LUGQ4UAROXYEQZYFWW2QR&i=C2KJA7AZIEMSKOVI32PYOSHSYXOWIET7K&v=2.4).
@@ -36,5 +47,5 @@ able to defeat the armies of the evil Potato Lord? Play and see!
 This game is built by TheHub (Team9) of SEM'16, University of Gothenburg.
 
 ```
-More info if needed.
+More info if needed, contact us @rundorisrun.thegame@gmail.com
 ```
