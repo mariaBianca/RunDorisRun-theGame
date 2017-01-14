@@ -1,4 +1,5 @@
 /**
+This script is used in order to set a new message in the MongoDB collection of the chat.
 @author TheHub
 DIT029 H16 Project: Software Architecture for Distributed Systems
 University of Gothenburg, Sweden 2016
