@@ -1,4 +1,5 @@
 /**
+This script is used in order to fetch the highest Scores in the db on the remote server.
 @author TheHub
 DIT029 H16 Project: Software Architecture for Distributed Systems
 University of Gothenburg, Sweden 2016
